@@ -19,20 +19,20 @@ namespace Kwitter.Models
         // and set username visible to other users
         [Required]
         [MaxLength(20)]
-        public string email { get; set; }
+        public string Email { get; set; }
 
         [Required]
         [MaxLength(20)]
-        public string username { get; set; }
+        public string Username { get; set; }
 
         [Required]
         [MaxLength(20)]
-        public string password { get; set; }
+        public string Password { get; set; }
 
         [Required]
-        public char permissions { get; set; }
+        public char Permissions { get; set; }
 
-        public string bio { get; set; }
+        public string Bio { get; set; }
 
     }
 }
