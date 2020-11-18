@@ -13,7 +13,7 @@ namespace Kwitter.Data
             throw new NotImplementedException();
         }
 
-        public User GetUserById()
+        public User GetUserById(int id)
         {
             throw new NotImplementedException();
         }

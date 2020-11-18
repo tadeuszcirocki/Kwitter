@@ -13,7 +13,7 @@ namespace Kwitter.Data
             throw new NotImplementedException();
         }
 
-        public Kweet GetKweetById()
+        public Kweet GetKweetById(int id)
         {
             throw new NotImplementedException();
         }
