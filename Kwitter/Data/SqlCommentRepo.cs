@@ -8,14 +8,21 @@ namespace Kwitter.Data
 {
     public class SqlCommentRepo : ICommentRepo
     {
-        public IEnumerable<Comment> GetAllComments()
+        private readonly DatabaseContext _context;
+
+        public SqlCommentRepo(DatabaseContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Comment GetCommentById()
+        public IEnumerable<Comment> GetAllComments()
         {
-            throw new NotImplementedException();
+            return _context.Comments.ToList();
+        }
+
+        public Comment GetCommentById(int id)
+        {
+            return _context.Comments.FirstOrDefault(c => c.Id == id);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -12,27 +13,14 @@ namespace Kwitter.Models
 {
     public class User
     {
-        [Key]
         public int Id { get; set; }
-
-        // my idea is to make user login through an email
-        // and set username visible to other users
-        [Required]
-        [MaxLength(20)]
-        public string Email { get; set; }
-
-        [Required]
-        [MaxLength(20)]
         public string Username { get; set; }
-
-        [Required]
-        [MaxLength(20)]
         public string Password { get; set; }
-
-        [Required]
-        public char Permissions { get; set; }
-
+        public string Email { get; set; }
+        public char Permissions { get; set; }   //seems edgy
         public string Bio { get; set; }
 
+        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Kweet> Kweets { get; set; }
     }
 }

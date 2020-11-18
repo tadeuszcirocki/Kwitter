@@ -9,6 +9,6 @@ namespace Kwitter.Data
     public interface IUserRepo
     {
         IEnumerable<User> GetAllUsers();
-        User GetUserById();
+        User GetUserById(int id);
     }
 }

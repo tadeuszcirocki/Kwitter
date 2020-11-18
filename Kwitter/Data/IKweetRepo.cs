@@ -9,6 +9,6 @@ namespace Kwitter.Data
     public interface IKweetRepo
     {
         IEnumerable<Kweet> GetAllKweets();
-        Kweet GetKweetById();
+        Kweet GetKweetById(int id);
     }
 }
