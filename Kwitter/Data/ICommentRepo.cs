@@ -9,6 +9,6 @@ namespace Kwitter.Data
     public interface ICommentRepo
     {
         IEnumerable<Comment> GetAllComments();
-        Comment GetCommentById();
+        Comment GetCommentById(int id);
     }
 }

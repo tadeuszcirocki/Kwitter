@@ -30,7 +30,7 @@ namespace Kwitter
             services.AddControllers();
 
             services.AddDbContext<DatabaseContext>(opt =>
-                opt.UseSqlite("Data Source=database.db"));
+                opt.UseSqlite("Data Source=database.db"));  //here change the db
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
