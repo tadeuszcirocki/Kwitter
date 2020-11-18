@@ -1,32 +1,21 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using System.Collections.Generic;
 
-/* TODO
- * how to handle foreign keys
- */
 
 namespace Kwitter.Models
 {
     public class Kweet
     {
-        [Key]
         public int Id { get; set; }
-
-        [Required]
-        [MaxLength(50)]
         public string Title { get; set; }
-
-        [Required]
-        [MaxLength(1000)]
         public string Content { get; set; }
-
-        [Required]
-        [DefaultValue(0)]
         public int LikeQuantity { get; set; }
+        public DateTime? Created { get; set; }
 
-        [Required]
-        public User FkUser { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
 
+        public virtual User User { get; set; }
     }
 }
