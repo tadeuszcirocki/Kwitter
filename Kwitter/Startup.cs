@@ -29,8 +29,14 @@ namespace Kwitter
         {
             services.AddControllers();
 
+
+            services.AddScoped<ICommentRepo, SqlCommentRepo>();
+            services.AddScoped<IKweetRepo, SqlKweetRepo>();
+            services.AddScoped<IUserRepo, SqlUserRepo>();
+          
             services.AddDbContext<DatabaseContext>(opt =>
                 opt.UseSqlite("Data Source=database.db"));  //here change the db
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
