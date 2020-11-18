@@ -28,6 +28,7 @@ namespace Kwitter
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
             services.AddDbContext<DatabaseContext>(opt =>
                 opt.UseSqlite("Data Source=database.db"));
         }

@@ -9,6 +9,10 @@ namespace Kwitter.Data
 {
     public class DatabaseContext : DbContext
     {
+        public DatabaseContext(DbContextOptions<DatabaseContext> opt) : base(opt)
+        {
+
+        }
         public DbSet<User> Users { get; set; }
         public DbSet<Kweet> Kweets { get; set; }
         public DbSet<Comment> Comments { get; set; }
