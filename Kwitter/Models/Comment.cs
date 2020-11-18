@@ -14,6 +14,5 @@ namespace Kwitter.Models
 
         public virtual User User { get; set; }
         public virtual Kweet Kweet { get; set; }
-
     }
 }
