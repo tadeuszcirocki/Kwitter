@@ -2,9 +2,6 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-/* TODO
- * how to handle foreign keys
- */
 
 namespace Kwitter.Models
 {
