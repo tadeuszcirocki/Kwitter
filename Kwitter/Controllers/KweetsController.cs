@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Kwitter.Data;
+using Kwitter.DTOs;
 using Kwitter.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,28 +17,33 @@ namespace Kwitter.Controllers
     public class KweetsController : ControllerBase
     {
         private readonly IKweetRepo _repo;
+        private readonly IMapper _mapper;
 
-        public KweetsController(IKweetRepo repo)
+        public KweetsController(IKweetRepo repo, IMapper mapper)
         {
             _repo = repo;
+            _mapper = mapper;
         }
 
         //GET api/Kweets
         [HttpGet]
-        public ActionResult<IEnumerable<Kweet>> GetAllKweets()
+        public ActionResult<IEnumerable<KweetReadDto>> GetAllKweets()
         {
             var kweets = _repo.GetAllKweets();
 
-            return Ok(kweets);
+            return Ok(_mapper.Map<IEnumerable<KweetReadDto>>(kweets));
         }
 
         //GET api/Kweets/{id}
         [HttpGet("{id}")]
-        public ActionResult <Kweet> GetKweetById(int id)
+        public ActionResult <KweetReadDto> GetKweetById(int id)
         {
             var kweet = _repo.GetKweetById(id);
-
-            return Ok(kweet);
+            if(kweet != null)
+            {
+                return Ok(_mapper.Map<KweetReadDto>(kweet));
+            }
+            return NotFound();
         }
 
 

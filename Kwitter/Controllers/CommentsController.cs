@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Kwitter.Data;
+using Kwitter.DTOs;
 using Kwitter.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,28 +17,33 @@ namespace Kwitter.Controllers
     public class CommentsController : ControllerBase
     {
         private readonly ICommentRepo _repo;
+        private readonly IMapper _mapper;
 
-        public CommentsController(ICommentRepo repo)
+        public CommentsController(ICommentRepo repo, IMapper mapper)
         {
             _repo = repo;
+            _mapper = mapper;
         }
 
         //GET api/Comments
         [HttpGet]
-        public ActionResult<IEnumerable<Comment>> GetAllComments()
+        public ActionResult<IEnumerable<CommentReadDto>> GetAllComments()
         {
             var comments = _repo.GetAllComments();
 
-            return Ok(comments);
+            return Ok(_mapper.Map<IEnumerable<CommentReadDto>>(comments));
         }
 
         //Get api/Comments/{id}
         [HttpGet("{id}")]
-        public ActionResult <Comment> GetCommentById(int id)
+        public ActionResult <CommentReadDto> GetCommentById(int id)
         {
             var comment = _repo.GetCommentById(id);
-
-            return Ok(comment);
+            if (comment != null)
+            {
+                return Ok(_mapper.Map<CommentReadDto>(comment));
+            }
+            return NotFound();
         }
     }
 }
