@@ -8,6 +8,7 @@ namespace Kwitter.Models
 {
     public class Kweet
     {
+        [Key]
         public int Id { get; set; }
 
         [Required]

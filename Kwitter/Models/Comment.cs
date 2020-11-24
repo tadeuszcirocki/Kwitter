@@ -7,6 +7,7 @@ namespace Kwitter.Models
 {
     public class Comment
     {
+        [Key]
         public int Id { get; set; }
 
         [Required]
