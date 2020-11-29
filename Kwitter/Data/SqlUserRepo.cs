@@ -8,14 +8,20 @@ namespace Kwitter.Data
 {
     public class SqlUserRepo : IUserRepo
     {
+        private readonly DatabaseContext _context;
+
+        public SqlUserRepo(DatabaseContext context)
+        {
+            _context = context;
+        }
         public IEnumerable<User> GetAllUsers()
         {
-            throw new NotImplementedException();
+            return _context.Users.ToList();
         }
 
         public User GetUserById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Users.FirstOrDefault(p => p.Id == id);
         }
     }
 }

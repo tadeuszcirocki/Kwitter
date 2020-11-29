@@ -22,7 +22,7 @@ namespace Kwitter.Data
 
         public Comment GetCommentById(int id)
         {
-            return _context.Comments.FirstOrDefault(c => c.Id == id);
+            return _context.Comments.FirstOrDefault(p => p.Id == id);
         }
     }
 }

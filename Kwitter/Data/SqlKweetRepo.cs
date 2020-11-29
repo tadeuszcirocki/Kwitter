@@ -8,14 +8,20 @@ namespace Kwitter.Data
 {
     public class SqlKweetRepo : IKweetRepo
     {
+        private readonly DatabaseContext _context;
+
+        public SqlKweetRepo(DatabaseContext context)
+        {
+            _context = context;
+        }
         public IEnumerable<Kweet> GetAllKweets()
         {
-            throw new NotImplementedException();
+            return _context.Kweets.ToList();
         }
 
         public Kweet GetKweetById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Kweets.FirstOrDefault(p => p.Id == id);
         }
     }
 }
