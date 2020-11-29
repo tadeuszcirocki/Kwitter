@@ -11,7 +11,6 @@ namespace Kwitter.Models
         public int Id { get; set; }
 
         [Required]
-        [MinLength(1)]
         public string Content { get; set; }
 
         [Required]

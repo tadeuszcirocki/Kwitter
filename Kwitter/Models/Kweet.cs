@@ -17,7 +17,6 @@ namespace Kwitter.Models
         public string Title { get; set; }
 
         [Required]
-        [MinLength(1)]
         public string Content { get; set; }
 
         [Required]
