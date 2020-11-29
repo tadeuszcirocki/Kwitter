@@ -21,12 +21,22 @@ namespace Kwitter.Controllers
             _repo = repo;
         }
 
+        //GET api/Comments
         [HttpGet]
         public ActionResult<IEnumerable<Comment>> GetAllComments()
         {
             var comments = _repo.GetAllComments();
 
             return Ok(comments);
+        }
+
+        //Get api/Comments/{id}
+        [HttpGet("{id}")]
+        public ActionResult <Comment> GetCommentById(int id)
+        {
+            var comment = _repo.GetCommentById(id);
+
+            return Ok(comment);
         }
     }
 }

@@ -21,12 +21,22 @@ namespace Kwitter.Controllers
             _repo = repo;
         }
 
+        //GET api/Users
         [HttpGet]
         public ActionResult<IEnumerable<User>> GetAllUsers()
         {
-            var comments = _repo.GetAllUsers();
+            var users = _repo.GetAllUsers();
 
-            return Ok(comments);
+            return Ok(users);
+        }
+
+        //GET api/Users/{id}
+        [HttpGet("{id}")]
+        public ActionResult <User> GetUserById(int id)
+        {
+            var user = _repo.GetUserById(id);
+
+            return Ok(user);
         }
     }
 }

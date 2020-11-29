@@ -21,12 +21,22 @@ namespace Kwitter.Controllers
             _repo = repo;
         }
 
+        //GET api/Kweets
         [HttpGet]
         public ActionResult<IEnumerable<Kweet>> GetAllKweets()
         {
-            var comments = _repo.GetAllKweets();
+            var kweets = _repo.GetAllKweets();
 
-            return Ok(comments);
+            return Ok(kweets);
+        }
+
+        //GET api/Kweets/{id}
+        [HttpGet("{id}")]
+        public ActionResult <Kweet> GetKweetById(int id)
+        {
+            var kweet = _repo.GetKweetById(id);
+
+            return Ok(kweet);
         }
 
 
