@@ -46,6 +46,16 @@ namespace Kwitter.Controllers
             return NotFound();
         }
 
+        //POST api/Kweets
+        [HttpPost]
+        public ActionResult<KweetReadDto> CreateKweet(KweetCreateDto kweetCreateDto)
+        {
+            var kweetModel = _mapper.Map<Kweet>(kweetCreateDto);
+            _repo.CreateKweet(kweetModel);
+
+            return Ok(kweetModel);
+        }
+
 
     }
 }

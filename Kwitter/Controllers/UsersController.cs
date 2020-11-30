@@ -46,5 +46,15 @@ namespace Kwitter.Controllers
             return NotFound();
 
         }
+
+        //POST api/Users
+        [HttpPost]
+        public ActionResult<UserReadDto> CreateUser(UserCreateDto UserCreateDto)
+        {
+            var UserModel = _mapper.Map<User>(UserCreateDto);
+            _repo.CreateUser(UserModel);
+
+            return Ok(UserModel);
+        }
     }
 }
