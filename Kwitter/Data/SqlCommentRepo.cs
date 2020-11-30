@@ -21,6 +21,8 @@ namespace Kwitter.Data
             {
                 throw new ArgumentNullException(nameof(comment));
             }
+            comment.Created = DateTime.Now;
+            comment.LikeQuantity = 0;
 
             _context.Comments.Add(comment);
         }

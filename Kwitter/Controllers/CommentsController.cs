@@ -52,6 +52,7 @@ namespace Kwitter.Controllers
         {
             var commentModel = _mapper.Map<Comment>(commentCreateDto);
             _repo.CreateComment(commentModel);
+            _repo.SaveChanges();
 
             return Ok(commentModel);
         }
