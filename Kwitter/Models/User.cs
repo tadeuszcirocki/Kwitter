@@ -37,7 +37,7 @@ namespace Kwitter.Models
         [MaxLength(500)]
         public string Bio { get; set; }
 
-        public virtual ICollection<Comment> Comments { get; set; }
-        public virtual ICollection<Kweet> Kweets { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+        public ICollection<Kweet> Kweets { get; set; }
     }
 }

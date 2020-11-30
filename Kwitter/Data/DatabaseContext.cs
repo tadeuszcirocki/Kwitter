@@ -16,5 +16,23 @@ namespace Kwitter.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Kweet> Kweets { get; set; }
         public DbSet<Comment> Comments { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Comment>()
+                .HasOne(p => p.User)
+                .WithMany(b => b.Comments)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Comment>()
+                .HasOne(p => p.Kweet)
+                .WithMany(b => b.Comments)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Kweet>()
+                .HasOne(p => p.User)
+                .WithMany(b => b.Kweets)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
     }
 }
