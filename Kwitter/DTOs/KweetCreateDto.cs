@@ -12,8 +12,6 @@ namespace Kwitter.DTOs
 
         public string Content { get; set; }
 
-        public virtual ICollection<Comment> Comments { get; set; }
-
-        public virtual User User { get; set; }
+        public int UserId { get; set; }
     }
 }

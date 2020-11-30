@@ -17,8 +17,5 @@ namespace Kwitter.DTOs
         public char Permissions { get; set; }   //seems edgy
 
         public string Bio { get; set; }
-
-        public virtual ICollection<Comment> Comments { get; set; }
-        public virtual ICollection<Kweet> Kweets { get; set; }
     }
 }
