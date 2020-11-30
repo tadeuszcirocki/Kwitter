@@ -28,7 +28,9 @@ namespace Kwitter
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
 
 
             services.AddScoped<ICommentRepo, SqlCommentRepo>();
@@ -39,6 +41,7 @@ namespace Kwitter
                 opt.UseSqlite("Data Source=database.db"));  //here change the db
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

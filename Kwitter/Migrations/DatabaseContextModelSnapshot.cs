@@ -30,13 +30,13 @@ namespace Kwitter.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("KweetId")
+                    b.Property<int>("KweetId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("LikeQuantity")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -70,7 +70,7 @@ namespace Kwitter.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -117,11 +117,15 @@ namespace Kwitter.Migrations
                 {
                     b.HasOne("Kwitter.Models.Kweet", "Kweet")
                         .WithMany("Comments")
-                        .HasForeignKey("KweetId");
+                        .HasForeignKey("KweetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Kwitter.Models.User", "User")
                         .WithMany("Comments")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Kweet");
 
@@ -132,7 +136,9 @@ namespace Kwitter.Migrations
                 {
                     b.HasOne("Kwitter.Models.User", "User")
                         .WithMany("Kweets")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
