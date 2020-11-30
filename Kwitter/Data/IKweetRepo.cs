@@ -8,7 +8,10 @@ namespace Kwitter.Data
 {
     public interface IKweetRepo
     {
+        bool SaveChanges();
+
         IEnumerable<Kweet> GetAllKweets();
         Kweet GetKweetById(int id);
+        void CreateKweet(Kweet kweet);
     }
 }
