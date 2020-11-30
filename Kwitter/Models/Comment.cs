@@ -20,6 +20,8 @@ namespace Kwitter.Models
         public DateTime? Created { get; set; }
 
         public virtual User User { get; set; }
+        public int UserId { get; set; }
         public virtual Kweet Kweet { get; set; }
+        public int KweetId { get; set; }
     }
 }
