@@ -53,6 +53,7 @@ namespace Kwitter.Controllers
         {
             var UserModel = _mapper.Map<User>(UserCreateDto);
             _repo.CreateUser(UserModel);
+            _repo.SaveChanges();
 
             return Ok(UserModel);
         }

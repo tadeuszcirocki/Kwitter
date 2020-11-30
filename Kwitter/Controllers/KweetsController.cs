@@ -52,6 +52,7 @@ namespace Kwitter.Controllers
         {
             var kweetModel = _mapper.Map<Kweet>(kweetCreateDto);
             _repo.CreateKweet(kweetModel);
+            _repo.SaveChanges();
 
             return Ok(kweetModel);
         }

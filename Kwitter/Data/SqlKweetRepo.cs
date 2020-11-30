@@ -21,6 +21,8 @@ namespace Kwitter.Data
             {
                 throw new ArgumentNullException(nameof(kweet));
             }
+            kweet.Created = DateTime.Now;
+            kweet.LikeQuantity = 0;
 
             _context.Kweets.Add(kweet);
         }
