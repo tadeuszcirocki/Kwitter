@@ -47,6 +47,24 @@ namespace Kwitter.Controllers
 
         }
 
+        //GET api/Users/{id}/Comments
+        [HttpGet("{id}/Comments")]
+        public ActionResult<IEnumerable<CommentReadDto>> GetUserByIdComments(int id)
+        {
+            var comments = _repo.GetUserByIdComments(id);
+
+            return Ok(_mapper.Map<IEnumerable<CommentReadDto>>(comments));
+        }
+
+        //GET api/Users/{id}/Kweets
+        [HttpGet("{id}/Kweets")]
+        public ActionResult<IEnumerable<KweetReadDto>> GetUserByIdKweets(int id)
+        {
+            var comments = _repo.GetUserByIdKweets(id);
+
+            return Ok(_mapper.Map<IEnumerable<KweetReadDto>>(comments));
+        }
+
         //POST api/Users
         [HttpPost]
         public ActionResult<UserReadDto> CreateUser(UserCreateDto UserCreateDto)

@@ -34,6 +34,19 @@ namespace Kwitter.Data
         {
             return _context.Users.FirstOrDefault(p => p.Id == id);
         }
+
+        public ICollection<Comment> GetUserByIdComments(int id)
+        {
+            User user = _context.Users.FirstOrDefault(p => p.Id == id);
+            return _context.Comments.Where(p => p.UserId == user.Id).ToList();
+        }
+
+        public ICollection<Kweet> GetUserByIdKweets(int id)
+        {
+            User user = _context.Users.FirstOrDefault(p => p.Id == id);
+            return _context.Kweets.Where(p => p.UserId == user.Id).ToList();
+        }
+
         public bool SaveChanges()
         {
             return (_context.SaveChanges() >= 0);

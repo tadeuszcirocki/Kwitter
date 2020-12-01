@@ -45,8 +45,7 @@ namespace Kwitter.Data
         public ICollection<Comment> GetKweetByIdComments(int id)    //naming comes from GET kweet/{id}/comments
         {
             Kweet kweet = _context.Kweets.FirstOrDefault(p => p.Id == id);
-            kweet.Comments = _context.Comments.Where(p => p.KweetId == kweet.Id).ToList();
-            return kweet.Comments;
+            return _context.Comments.Where(p => p.KweetId == kweet.Id).ToList();
         }
     }
 }

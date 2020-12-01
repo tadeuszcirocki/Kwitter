@@ -13,5 +13,7 @@ namespace Kwitter.Data
         IEnumerable<User> GetAllUsers();
         User GetUserById(int id);
         void CreateUser(User user);
+        public ICollection<Kweet> GetUserByIdKweets(int id);
+        public ICollection<Comment> GetUserByIdComments(int id);
     }
 }
