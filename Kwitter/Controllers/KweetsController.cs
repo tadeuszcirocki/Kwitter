@@ -46,6 +46,15 @@ namespace Kwitter.Controllers
             return NotFound();
         }
 
+        //GET api/Kweets/{id}/Comments
+        [HttpGet("{id}/Comments")]
+        public ActionResult<IEnumerable<CommentReadDto>> GetKweetByIdComments(int id)
+        {
+            var comments = _repo.GetKweetByIdComments(id);
+            
+            return Ok(_mapper.Map<IEnumerable<CommentReadDto>>(comments));
+        }
+
         //POST api/Kweets
         [HttpPost]
         public ActionResult<KweetReadDto> CreateKweet(KweetCreateDto kweetCreateDto)
