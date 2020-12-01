@@ -35,7 +35,7 @@ namespace Kwitter.Controllers
         }
 
         //GET api/Users/{id}
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetUserById")]
         public ActionResult <UserReadDto> GetUserById(int id)
         {
             var user = _repo.GetUserById(id);
@@ -69,11 +69,13 @@ namespace Kwitter.Controllers
         [HttpPost]
         public ActionResult<UserReadDto> CreateUser(UserCreateDto UserCreateDto)
         {
-            var UserModel = _mapper.Map<User>(UserCreateDto);
-            _repo.CreateUser(UserModel);
+            var userModel = _mapper.Map<User>(UserCreateDto);
+            _repo.CreateUser(userModel);
             _repo.SaveChanges();
 
-            return Ok(UserModel);
+            var userReadDto = _mapper.Map<UserReadDto>(userModel);
+
+            return CreatedAtRoute(nameof(GetUserById), new { userReadDto.Id }, userReadDto);
         }
     }
 }

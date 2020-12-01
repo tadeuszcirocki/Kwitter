@@ -35,7 +35,7 @@ namespace Kwitter.Controllers
         }
 
         //GET api/Kweets/{id}
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetKweetById")]
         public ActionResult <KweetReadDto> GetKweetById(int id)
         {
             var kweet = _repo.GetKweetById(id);
@@ -63,7 +63,9 @@ namespace Kwitter.Controllers
             _repo.CreateKweet(kweetModel);
             _repo.SaveChanges();
 
-            return Ok(kweetModel);
+            var kweetReadDto = _mapper.Map<KweetReadDto>(kweetModel);
+
+            return CreatedAtRoute(nameof(GetKweetById), new { kweetReadDto.Id }, kweetReadDto);
         }
 
 

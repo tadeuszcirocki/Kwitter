@@ -35,7 +35,7 @@ namespace Kwitter.Controllers
         }
 
         //GET api/Comments/{id}
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name ="GetCommentById")]
         public ActionResult <CommentReadDto> GetCommentById(int id)
         {
             var comment = _repo.GetCommentById(id);
@@ -54,7 +54,9 @@ namespace Kwitter.Controllers
             _repo.CreateComment(commentModel);
             _repo.SaveChanges();
 
-            return Ok(commentModel);
+            var commentReadDto = _mapper.Map<CommentReadDto>(commentModel);
+
+            return CreatedAtRoute(nameof(GetCommentById), new { commentReadDto.Id }, commentReadDto);
         }
     }
 }
