@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using System.Collections.Generic;
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Kwitter.Models
 {
@@ -25,8 +25,10 @@ namespace Kwitter.Models
         [Required]
         public DateTime? Created { get; set; }
 
-        public virtual ICollection<Comment> Comments { get; set; }
+        public ICollection<Comment> Comments { get; set; }
 
-        public virtual User User { get; set; }
+        [ForeignKey("UserId")]
+        public User User { get; set; }
+        public int UserId { get; set; }
     }
 }

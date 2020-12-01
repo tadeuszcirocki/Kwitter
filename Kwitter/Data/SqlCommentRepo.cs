@@ -15,6 +15,18 @@ namespace Kwitter.Data
             _context = context;
         }
 
+        public void CreateComment(Comment comment)
+        {
+            if (comment == null)
+            {
+                throw new ArgumentNullException(nameof(comment));
+            }
+            comment.Created = DateTime.Now;
+            comment.LikeQuantity = 0;
+            
+            _context.Comments.Add(comment);
+        }
+
         public IEnumerable<Comment> GetAllComments()
         {
             return _context.Comments.ToList();
@@ -23,6 +35,11 @@ namespace Kwitter.Data
         public Comment GetCommentById(int id)
         {
             return _context.Comments.FirstOrDefault(p => p.Id == id);
+        }
+
+        public bool SaveChanges()
+        {
+            return (_context.SaveChanges() >= 0);
         }
     }
 }

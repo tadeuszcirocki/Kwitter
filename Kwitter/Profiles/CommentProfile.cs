@@ -9,6 +9,7 @@ namespace Kwitter.Profiles
         public CommentProfile()
         {
             CreateMap<Comment, CommentReadDto>();
+            CreateMap<CommentCreateDto, Comment>();
         }
     }
 }

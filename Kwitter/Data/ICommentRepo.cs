@@ -8,7 +8,10 @@ namespace Kwitter.Data
 {
     public interface ICommentRepo
     {
+        bool SaveChanges();
+
         IEnumerable<Comment> GetAllComments();
         Comment GetCommentById(int id);
+        void CreateComment(Comment comment);
     }
 }

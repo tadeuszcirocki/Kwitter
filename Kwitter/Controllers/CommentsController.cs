@@ -34,8 +34,8 @@ namespace Kwitter.Controllers
             return Ok(_mapper.Map<IEnumerable<CommentReadDto>>(comments));
         }
 
-        //Get api/Comments/{id}
-        [HttpGet("{id}")]
+        //GET api/Comments/{id}
+        [HttpGet("{id}", Name ="GetCommentById")]
         public ActionResult <CommentReadDto> GetCommentById(int id)
         {
             var comment = _repo.GetCommentById(id);
@@ -44,6 +44,19 @@ namespace Kwitter.Controllers
                 return Ok(_mapper.Map<CommentReadDto>(comment));
             }
             return NotFound();
+        }
+
+        //POST api/Comments
+        [HttpPost]
+        public ActionResult <CommentReadDto> CreateComment(CommentCreateDto commentCreateDto)
+        {
+            var commentModel = _mapper.Map<Comment>(commentCreateDto);
+            _repo.CreateComment(commentModel);
+            _repo.SaveChanges();
+
+            var commentReadDto = _mapper.Map<CommentReadDto>(commentModel);
+
+            return CreatedAtRoute(nameof(GetCommentById), new { commentReadDto.Id }, commentReadDto);
         }
     }
 }

@@ -23,18 +23,20 @@ namespace Kwitter.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Content")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("Created")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("KweetId")
+                    b.Property<int>("KweetId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("LikeQuantity")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -53,18 +55,22 @@ namespace Kwitter.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Content")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("Created")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("LikeQuantity")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -81,18 +87,25 @@ namespace Kwitter.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Bio")
+                        .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(30)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(30)
                         .HasColumnType("TEXT");
 
                     b.Property<char>("Permissions")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(30)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -104,11 +117,15 @@ namespace Kwitter.Migrations
                 {
                     b.HasOne("Kwitter.Models.Kweet", "Kweet")
                         .WithMany("Comments")
-                        .HasForeignKey("KweetId");
+                        .HasForeignKey("KweetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Kwitter.Models.User", "User")
                         .WithMany("Comments")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Kweet");
 
@@ -119,7 +136,9 @@ namespace Kwitter.Migrations
                 {
                     b.HasOne("Kwitter.Models.User", "User")
                         .WithMany("Kweets")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });

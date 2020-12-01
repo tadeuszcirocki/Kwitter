@@ -9,6 +9,7 @@ namespace Kwitter.Profiles
         public KweetProfile()
         {
             CreateMap<Kweet, KweetReadDto>();
+            CreateMap<KweetCreateDto, Kweet>();
         }
     }
 }

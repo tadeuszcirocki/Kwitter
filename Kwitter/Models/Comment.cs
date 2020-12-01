@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Kwitter.Models
 {
@@ -19,7 +19,12 @@ namespace Kwitter.Models
         [Required]
         public DateTime? Created { get; set; }
 
-        public virtual User User { get; set; }
-        public virtual Kweet Kweet { get; set; }
+        [ForeignKey("UserId")]
+        public User User { get; set; }
+        public int UserId { get; set; }
+
+        [ForeignKey("KweetId")]
+        public Kweet Kweet { get; set; }
+        public int KweetId { get; set; }
     }
 }
