@@ -23,9 +23,7 @@ namespace Kwitter.Data
             }
             comment.Created = DateTime.Now;
             comment.LikeQuantity = 0;
-            comment.User = _context.Users.FirstOrDefault(p => p.Id == comment.UserId);
-            comment.Kweet = _context.Kweets.FirstOrDefault(p => p.Id == comment.KweetId);
-
+            
             _context.Comments.Add(comment);
         }
 

@@ -14,7 +14,7 @@ namespace Kwitter.DTOs
 
         public DateTime? Created { get; set; }
 
-        public User User { get; set; }
-        public Kweet Kweet { get; set; }
+        public int UserId { get; set; }
+        public int KweetId { get; set; }
     }
 }

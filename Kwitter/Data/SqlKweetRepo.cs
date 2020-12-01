@@ -23,8 +23,6 @@ namespace Kwitter.Data
             }
             kweet.Created = DateTime.Now;
             kweet.LikeQuantity = 0;
-            kweet.User = _context.Users.FirstOrDefault(p => p.Id == kweet.UserId);
-
 
             _context.Kweets.Add(kweet);
         }
