@@ -32,6 +32,11 @@ namespace Kwitter.Data
             return _context.Comments.ToList();
         }
 
+        public IEnumerable<Comment> GetCommentsByPostId(int postId)
+        {
+            return _context.Comments.Where(i => i.KweetId == postId).ToList();
+        }
+
         public Comment GetCommentById(int id)
         {
             return _context.Comments.FirstOrDefault(p => p.Id == id);

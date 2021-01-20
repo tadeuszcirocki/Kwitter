@@ -11,6 +11,7 @@ namespace Kwitter.Data
         bool SaveChanges();
 
         IEnumerable<Comment> GetAllComments();
+        IEnumerable<Comment> GetCommentsByPostId(int postId);
         Comment GetCommentById(int id);
         void CreateComment(Comment comment);
     }
