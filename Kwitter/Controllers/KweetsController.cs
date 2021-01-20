@@ -76,6 +76,13 @@ namespace Kwitter.Controllers
             return Ok(_mapper.Map<UserReadDto>(user));
         }
 
+        [HttpGet("{id}/Like")]
+        public void AddLike(int id)
+        {
+            _repo.AddLike(id);
+            _repo.SaveChanges();
+        }
+
 
     }
 }

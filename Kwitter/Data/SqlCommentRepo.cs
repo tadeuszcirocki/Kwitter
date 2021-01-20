@@ -52,5 +52,10 @@ namespace Kwitter.Data
             var userId = _context.Comments.FirstOrDefault(p => p.Id == id).UserId;
             return _context.Users.FirstOrDefault(i => i.Id == userId);
         }
+
+        public void AddLike(int id)
+        {
+            _context.Comments.FirstOrDefault(p => p.Id == id).LikeQuantity+=1;
+        }
     }
 }

@@ -15,6 +15,6 @@ namespace Kwitter.Data
         Comment GetCommentById(int id);
         void CreateComment(Comment comment);
         User GetUserOfComment(int id);    //get user of comment by comment id
-
+        void AddLike(int id);
     }
 }
