@@ -68,6 +68,14 @@ namespace Kwitter.Controllers
             return CreatedAtRoute(nameof(GetKweetById), new { kweetReadDto.Id }, kweetReadDto);
         }
 
+        [HttpGet("{id}/User")]
+        public ActionResult<UserReadDto> GetUserOfKweet(int id)
+        {
+            var user = _repo.GetUserOfKweet(id);
+
+            return Ok(_mapper.Map<UserReadDto>(user));
+        }
+
 
     }
 }

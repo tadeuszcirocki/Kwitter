@@ -47,5 +47,11 @@ namespace Kwitter.Data
             Kweet kweet = _context.Kweets.FirstOrDefault(p => p.Id == id);
             return _context.Comments.Where(p => p.KweetId == kweet.Id).ToList();
         }
+
+        public User GetUserOfKweet(int id)
+        {
+            var userId = _context.Kweets.FirstOrDefault(p => p.Id == id).UserId;
+            return _context.Users.FirstOrDefault(i => i.Id == userId);
+        }
     }
 }

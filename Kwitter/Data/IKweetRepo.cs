@@ -12,6 +12,7 @@ namespace Kwitter.Data
 
         IEnumerable<Kweet> GetAllKweets();
         Kweet GetKweetById(int id);
+        User GetUserOfKweet(int id);    //get user of post by post id
         void CreateKweet(Kweet kweet);
         public ICollection<Comment> GetKweetByIdComments(int id);    //naming comes from GET kweet/{id}/comments
 

@@ -46,7 +46,7 @@ namespace Kwitter.Controllers
             return NotFound();
         }
 
-        //GET api/Comments/Post/{id}
+        //GET api/Comments/Post/{id}    get comments of post
         [HttpGet("Post/{id}")]
         public ActionResult<IEnumerable<CommentReadDto>> GetCommentsByPostId(int id)
         {
