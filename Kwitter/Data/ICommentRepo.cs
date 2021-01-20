@@ -14,5 +14,7 @@ namespace Kwitter.Data
         IEnumerable<Comment> GetCommentsByPostId(int postId);
         Comment GetCommentById(int id);
         void CreateComment(Comment comment);
+        User GetUserOfComment(int id);    //get user of comment by comment id
+
     }
 }

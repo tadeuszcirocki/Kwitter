@@ -46,5 +46,11 @@ namespace Kwitter.Data
         {
             return (_context.SaveChanges() >= 0);
         }
+
+        public User GetUserOfComment(int id)
+        {
+            var userId = _context.Comments.FirstOrDefault(p => p.Id == id).UserId;
+            return _context.Users.FirstOrDefault(i => i.Id == userId);
+        }
     }
 }

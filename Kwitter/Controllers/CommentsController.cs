@@ -67,5 +67,13 @@ namespace Kwitter.Controllers
 
             return CreatedAtRoute(nameof(GetCommentById), new { commentReadDto.Id }, commentReadDto);
         }
+
+        [HttpGet("{id}/User")]
+        public ActionResult<UserReadDto> GetUserOfComment(int id)
+        {
+            var user = _repo.GetUserOfComment(id);
+
+            return Ok(_mapper.Map<UserReadDto>(user));
+        }
     }
 }
