@@ -1,8 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace Kwitter.DTOs
 {
-    public class CommentCreateDto
+    public class CommentUpdateDto
     {
         [Required]
         public string Content { get; set; }

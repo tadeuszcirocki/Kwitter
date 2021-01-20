@@ -15,5 +15,7 @@ namespace Kwitter.Data
         void CreateUser(User user);
         public ICollection<Kweet> GetUserByIdKweets(int id);
         public ICollection<Comment> GetUserByIdComments(int id);
+        void UpdateUser(User user);
+        void DeleteUser(User user);
     }
 }

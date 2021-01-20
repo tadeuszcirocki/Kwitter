@@ -6,6 +6,7 @@ using AutoMapper;
 using Kwitter.Data;
 using Kwitter.DTOs;
 using Kwitter.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -76,6 +77,68 @@ namespace Kwitter.Controllers
             var userReadDto = _mapper.Map<UserReadDto>(userModel);
 
             return CreatedAtRoute(nameof(GetUserById), new { userReadDto.Id }, userReadDto);
+        }
+
+        //PUT api/Users/{id}
+        [HttpPut("{id}")]
+        public ActionResult UpdateUser(int id, UserUpdateDto userUpdateDto)
+        {
+            var userModelFromRepo = _repo.GetUserById(id);
+            if(userModelFromRepo == null)
+            {
+                return NotFound();
+            }
+            _mapper.Map(userUpdateDto, userModelFromRepo);
+
+            _repo.UpdateUser(userModelFromRepo);
+
+            _repo.SaveChanges();
+
+            return NoContent();
+        }
+
+        //PATCH api/Users/{id}
+        [HttpPatch("{id}")]
+        public ActionResult PartialUserUpdate(int id, JsonPatchDocument<UserUpdateDto> patchDoc)
+        {
+            var userModelFromRepo = _repo.GetUserById(id);
+            if(userModelFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            var userToPatch = _mapper.Map<UserUpdateDto>(userModelFromRepo);
+            patchDoc.ApplyTo(userToPatch, ModelState);
+
+            if (!TryValidateModel(userToPatch))
+            {
+                return ValidationProblem(ModelState);
+            }
+
+            _mapper.Map(userToPatch, userModelFromRepo);
+
+            _repo.UpdateUser(userModelFromRepo);
+
+            _repo.SaveChanges();
+
+            return NoContent();
+        }
+
+        //DELETE api/Users/{id}
+        [HttpDelete("{id}")]
+        public ActionResult DeleteUser(int id)
+        {
+            var userModelFromRepo = _repo.GetUserById(id);
+            if (userModelFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            _repo.DeleteUser(userModelFromRepo);
+
+            _repo.SaveChanges();
+
+            return NoContent();
         }
     }
 }

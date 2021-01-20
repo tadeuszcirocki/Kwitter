@@ -27,6 +27,15 @@ namespace Kwitter.Data
             _context.Comments.Add(comment);
         }
 
+        public void DeleteComment(Comment comment)
+        {
+            if (comment == null)
+            {
+                throw new ArgumentNullException(nameof(comment));
+            }
+            _context.Comments.Remove(comment);
+        }
+
         public IEnumerable<Comment> GetAllComments()
         {
             return _context.Comments.ToList();
@@ -40,6 +49,11 @@ namespace Kwitter.Data
         public bool SaveChanges()
         {
             return (_context.SaveChanges() >= 0);
+        }
+
+        public void UpdateComment(Comment comment)
+        {
+           //Nothing
         }
     }
 }
