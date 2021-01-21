@@ -34,8 +34,8 @@ namespace Kwitter.Controllers
             return Ok(_mapper.Map<IEnumerable<CommentReadDto>>(comments));
         }
 
-        //Get api/Comments/{id}
-        [HttpGet("{id}")]
+        //GET api/Comments/{id}
+        [HttpGet("{id}", Name ="GetCommentById")]
         public ActionResult <CommentReadDto> GetCommentById(int id)
         {
             var comment = _repo.GetCommentById(id);
@@ -44,6 +44,43 @@ namespace Kwitter.Controllers
                 return Ok(_mapper.Map<CommentReadDto>(comment));
             }
             return NotFound();
+        }
+
+        //GET api/Comments/Post/{id}    get comments of post
+        [HttpGet("Post/{id}")]
+        public ActionResult<IEnumerable<CommentReadDto>> GetCommentsByPostId(int id)
+        {
+            var comments = _repo.GetCommentsByPostId(id);
+
+            return Ok(_mapper.Map<IEnumerable<CommentReadDto>>(comments));
+        }
+
+        //POST api/Comments
+        [HttpPost]
+        public ActionResult <CommentReadDto> CreateComment(CommentCreateDto commentCreateDto)
+        {
+            var commentModel = _mapper.Map<Comment>(commentCreateDto);
+            _repo.CreateComment(commentModel);
+            _repo.SaveChanges();
+
+            var commentReadDto = _mapper.Map<CommentReadDto>(commentModel);
+
+            return CreatedAtRoute(nameof(GetCommentById), new { commentReadDto.Id }, commentReadDto);
+        }
+
+        [HttpGet("{id}/User")]
+        public ActionResult<UserReadDto> GetUserOfComment(int id)
+        {
+            var user = _repo.GetUserOfComment(id);
+
+            return Ok(_mapper.Map<UserReadDto>(user));
+        }
+
+        [HttpGet("{id}/Like")]
+        public void AddLike(int id)
+        {
+            _repo.AddLike(id);
+            _repo.SaveChanges();
         }
     }
 }

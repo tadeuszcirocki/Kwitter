@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Kwitter.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,11 +13,11 @@ namespace Kwitter.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Username = table.Column<string>(type: "TEXT", nullable: true),
-                    Password = table.Column<string>(type: "TEXT", nullable: true),
-                    Email = table.Column<string>(type: "TEXT", nullable: true),
+                    Username = table.Column<string>(type: "TEXT", maxLength: 30, nullable: false),
+                    Password = table.Column<string>(type: "TEXT", maxLength: 30, nullable: false),
+                    Email = table.Column<string>(type: "TEXT", maxLength: 30, nullable: false),
                     Permissions = table.Column<char>(type: "TEXT", nullable: false),
-                    Bio = table.Column<string>(type: "TEXT", nullable: true)
+                    Bio = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -30,11 +30,11 @@ namespace Kwitter.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<string>(type: "TEXT", nullable: true),
-                    Content = table.Column<string>(type: "TEXT", nullable: true),
+                    Title = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Content = table.Column<string>(type: "TEXT", nullable: false),
                     LikeQuantity = table.Column<int>(type: "INTEGER", nullable: false),
-                    Created = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: true)
+                    Created = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,7 +44,7 @@ namespace Kwitter.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -53,11 +53,11 @@ namespace Kwitter.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Content = table.Column<string>(type: "TEXT", nullable: true),
+                    Content = table.Column<string>(type: "TEXT", nullable: false),
                     LikeQuantity = table.Column<int>(type: "INTEGER", nullable: false),
-                    Created = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: true),
-                    KweetId = table.Column<int>(type: "INTEGER", nullable: true)
+                    Created = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    KweetId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,13 +67,13 @@ namespace Kwitter.Migrations
                         column: x => x.KweetId,
                         principalTable: "Kweets",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Comments_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

@@ -35,7 +35,7 @@ namespace Kwitter.Controllers
         }
 
         //GET api/Kweets/{id}
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetKweetById")]
         public ActionResult <KweetReadDto> GetKweetById(int id)
         {
             var kweet = _repo.GetKweetById(id);
@@ -44,6 +44,43 @@ namespace Kwitter.Controllers
                 return Ok(_mapper.Map<KweetReadDto>(kweet));
             }
             return NotFound();
+        }
+
+        //GET api/Kweets/{id}/Comments
+        [HttpGet("{id}/Comments")]
+        public ActionResult<IEnumerable<CommentReadDto>> GetKweetByIdComments(int id)
+        {
+            var comments = _repo.GetKweetByIdComments(id);
+            
+            return Ok(_mapper.Map<IEnumerable<CommentReadDto>>(comments));
+        }
+
+        //POST api/Kweets
+        [HttpPost]
+        public ActionResult<KweetReadDto> CreateKweet(KweetCreateDto kweetCreateDto)
+        {
+            var kweetModel = _mapper.Map<Kweet>(kweetCreateDto);
+            _repo.CreateKweet(kweetModel);
+            _repo.SaveChanges();
+
+            var kweetReadDto = _mapper.Map<KweetReadDto>(kweetModel);
+
+            return CreatedAtRoute(nameof(GetKweetById), new { kweetReadDto.Id }, kweetReadDto);
+        }
+
+        [HttpGet("{id}/User")]
+        public ActionResult<UserReadDto> GetUserOfKweet(int id)
+        {
+            var user = _repo.GetUserOfKweet(id);
+
+            return Ok(_mapper.Map<UserReadDto>(user));
+        }
+
+        [HttpGet("{id}/Like")]
+        public void AddLike(int id)
+        {
+            _repo.AddLike(id);
+            _repo.SaveChanges();
         }
 
 

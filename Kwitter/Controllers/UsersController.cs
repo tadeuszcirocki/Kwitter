@@ -35,7 +35,7 @@ namespace Kwitter.Controllers
         }
 
         //GET api/Users/{id}
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetUserById")]
         public ActionResult <UserReadDto> GetUserById(int id)
         {
             var user = _repo.GetUserById(id);
@@ -45,6 +45,37 @@ namespace Kwitter.Controllers
             }
             return NotFound();
 
+        }
+
+        //GET api/Users/{id}/Comments
+        [HttpGet("{id}/Comments")]
+        public ActionResult<IEnumerable<CommentReadDto>> GetUserByIdComments(int id)
+        {
+            var comments = _repo.GetUserByIdComments(id);
+
+            return Ok(_mapper.Map<IEnumerable<CommentReadDto>>(comments));
+        }
+
+        //GET api/Users/{id}/Kweets
+        [HttpGet("{id}/Kweets")]
+        public ActionResult<IEnumerable<KweetReadDto>> GetUserByIdKweets(int id)
+        {
+            var comments = _repo.GetUserByIdKweets(id);
+
+            return Ok(_mapper.Map<IEnumerable<KweetReadDto>>(comments));
+        }
+
+        //POST api/Users
+        [HttpPost]
+        public ActionResult<UserReadDto> CreateUser(UserCreateDto UserCreateDto)
+        {
+            var userModel = _mapper.Map<User>(UserCreateDto);
+            _repo.CreateUser(userModel);
+            _repo.SaveChanges();
+
+            var userReadDto = _mapper.Map<UserReadDto>(userModel);
+
+            return CreatedAtRoute(nameof(GetUserById), new { userReadDto.Id }, userReadDto);
         }
     }
 }

@@ -9,6 +9,7 @@ namespace Kwitter.Profiles
         public UserProfile()
         {
             CreateMap<User, UserReadDto>();
+            CreateMap<UserCreateDto, User>();
         }
     }
 }
