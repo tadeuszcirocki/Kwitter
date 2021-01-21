@@ -27,14 +27,18 @@ namespace Kwitter.Data
             _context.Comments.Add(comment);
         }
 
+        public void DeleteComment(Comment comment)
+        {
+            if (comment == null)
+            {
+                throw new ArgumentNullException(nameof(comment));
+            }
+            _context.Comments.Remove(comment);
+        }
+
         public IEnumerable<Comment> GetAllComments()
         {
             return _context.Comments.ToList();
-        }
-
-        public IEnumerable<Comment> GetCommentsByPostId(int postId)
-        {
-            return _context.Comments.Where(i => i.KweetId == postId).ToList();
         }
 
         public Comment GetCommentById(int id)
@@ -47,15 +51,9 @@ namespace Kwitter.Data
             return (_context.SaveChanges() >= 0);
         }
 
-        public User GetUserOfComment(int id)
+        public void UpdateComment(Comment comment)
         {
-            var userId = _context.Comments.FirstOrDefault(p => p.Id == id).UserId;
-            return _context.Users.FirstOrDefault(i => i.Id == userId);
-        }
-
-        public void AddLike(int id)
-        {
-            _context.Comments.FirstOrDefault(p => p.Id == id).LikeQuantity+=1;
+           //Nothing
         }
     }
 }

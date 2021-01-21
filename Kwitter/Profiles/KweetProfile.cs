@@ -10,6 +10,8 @@ namespace Kwitter.Profiles
         {
             CreateMap<Kweet, KweetReadDto>();
             CreateMap<KweetCreateDto, Kweet>();
+            CreateMap<KweetUpdateDto, Kweet>();
+            CreateMap<Kweet, KweetUpdateDto>();
         }
     }
 }

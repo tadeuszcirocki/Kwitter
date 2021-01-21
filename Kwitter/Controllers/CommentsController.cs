@@ -6,6 +6,7 @@ using AutoMapper;
 using Kwitter.Data;
 using Kwitter.DTOs;
 using Kwitter.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -46,15 +47,6 @@ namespace Kwitter.Controllers
             return NotFound();
         }
 
-        //GET api/Comments/Post/{id}    get comments of post
-        [HttpGet("Post/{id}")]
-        public ActionResult<IEnumerable<CommentReadDto>> GetCommentsByPostId(int id)
-        {
-            var comments = _repo.GetCommentsByPostId(id);
-
-            return Ok(_mapper.Map<IEnumerable<CommentReadDto>>(comments));
-        }
-
         //POST api/Comments
         [HttpPost]
         public ActionResult <CommentReadDto> CreateComment(CommentCreateDto commentCreateDto)
@@ -68,19 +60,66 @@ namespace Kwitter.Controllers
             return CreatedAtRoute(nameof(GetCommentById), new { commentReadDto.Id }, commentReadDto);
         }
 
-        [HttpGet("{id}/User")]
-        public ActionResult<UserReadDto> GetUserOfComment(int id)
+        //PUT api/Comments/{id}
+        [HttpPut("{id}")]
+        public ActionResult UpdateComment(int id, CommentUpdateDto commentUpdateDto)
         {
-            var user = _repo.GetUserOfComment(id);
+            var commentModelFromRepo = _repo.GetCommentById(id);
+            if (commentModelFromRepo == null)
+            {
+                return NotFound();
+            }
+            _mapper.Map(commentUpdateDto, commentModelFromRepo);
 
-            return Ok(_mapper.Map<UserReadDto>(user));
+            _repo.UpdateComment(commentModelFromRepo);
+
+            _repo.SaveChanges();
+
+            return NoContent();
         }
 
-        [HttpGet("{id}/Like")]
-        public void AddLike(int id)
+        //PATCH api/Comments/{id}
+        [HttpPatch("{id}")]
+        public ActionResult PartialCommentUpdate(int id, JsonPatchDocument<CommentUpdateDto> patchDoc)
         {
-            _repo.AddLike(id);
+            var commentModelFromRepo = _repo.GetCommentById(id);
+            if (commentModelFromRepo == null)
+            {
+                return NotFound();
+            }
+            
+            var commentToPatch = _mapper.Map<CommentUpdateDto>(commentModelFromRepo);
+            patchDoc.ApplyTo(commentToPatch, ModelState);
+
+            if (!TryValidateModel(commentToPatch))
+            {
+                return ValidationProblem(ModelState);
+            }
+
+            _mapper.Map(commentToPatch, commentModelFromRepo);
+
+            _repo.UpdateComment(commentModelFromRepo);
+
             _repo.SaveChanges();
+
+            return NoContent();
+        }
+
+        //DELETE api/Comments/{id}
+        [HttpDelete("{id}")]
+        public ActionResult DeleteComment(int id)
+        {
+            var commentModelFromRepo = _repo.GetCommentById(id);
+            if (commentModelFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            _repo.DeleteComment(commentModelFromRepo);
+
+            _repo.SaveChanges();
+
+            return NoContent();
         }
     }
 }

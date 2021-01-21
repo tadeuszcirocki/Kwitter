@@ -48,15 +48,18 @@ namespace Kwitter.Data
             return _context.Comments.Where(p => p.KweetId == kweet.Id).ToList();
         }
 
-        public User GetUserOfKweet(int id)
+        public void UpdateKweet(Kweet kweet)
         {
-            var userId = _context.Kweets.FirstOrDefault(p => p.Id == id).UserId;
-            return _context.Users.FirstOrDefault(i => i.Id == userId);
+            //Nothing
         }
 
-        public void AddLike(int id)
+        public void DeleteKweet(Kweet kweet)
         {
-            _context.Kweets.FirstOrDefault(p => p.Id == id).LikeQuantity +=1;
+            if (kweet == null)
+            {
+                throw new ArgumentNullException(nameof(kweet));
+            }
+            _context.Kweets.Remove(kweet);
         }
     }
 }
