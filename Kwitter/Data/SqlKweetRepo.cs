@@ -61,5 +61,16 @@ namespace Kwitter.Data
             }
             _context.Kweets.Remove(kweet);
         }
+
+        public User GetUserOfKweet(int id)
+        {
+            var userId = _context.Kweets.FirstOrDefault(p => p.Id == id).UserId;
+            return _context.Users.FirstOrDefault(i => i.Id == userId);
+        }
+
+        public void AddLike(int id)
+        {
+            _context.Kweets.FirstOrDefault(p => p.Id == id).LikeQuantity += 1;
+        }
     }
 }

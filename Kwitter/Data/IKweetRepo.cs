@@ -16,6 +16,8 @@ namespace Kwitter.Data
         public ICollection<Comment> GetKweetByIdComments(int id);    //naming comes from GET kweet/{id}/comments
         void UpdateKweet(Kweet kweet);
         void DeleteKweet(Kweet kweet);
+        User GetUserOfKweet(int id);    //get user of post by post id
+        public void AddLike(int id);
 
     }
 }

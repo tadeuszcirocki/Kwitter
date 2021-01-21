@@ -130,5 +130,20 @@ namespace Kwitter.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("{id}/User")]
+        public ActionResult<UserReadDto> GetUserOfKweet(int id)
+        {
+            var user = _repo.GetUserOfKweet(id);
+
+            return Ok(_mapper.Map<UserReadDto>(user));
+        }
+
+        [HttpGet("{id}/Like")]
+        public void AddLike(int id)
+        {
+            _repo.AddLike(id);
+            _repo.SaveChanges();
+        }
     }
 }

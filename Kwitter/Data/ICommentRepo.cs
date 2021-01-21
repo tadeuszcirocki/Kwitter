@@ -15,5 +15,8 @@ namespace Kwitter.Data
         void CreateComment(Comment comment);
         void UpdateComment(Comment comment);
         void DeleteComment(Comment comment);
+        IEnumerable<Comment> GetCommentsByPostId(int postId);
+        User GetUserOfComment(int id);    //get user of comment by comment id
+        void AddLike(int id);
     }
 }

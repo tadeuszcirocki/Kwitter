@@ -121,5 +121,29 @@ namespace Kwitter.Controllers
 
             return NoContent();
         }
+
+        //GET api/Comments/Post/{id}
+        [HttpGet("Post/{id}")]
+        public ActionResult<IEnumerable<CommentReadDto>> GetCommentsByPostId(int id)
+        {
+            var comments = _repo.GetCommentsByPostId(id);
+
+            return Ok(_mapper.Map<IEnumerable<CommentReadDto>>(comments));
+        }
+
+        [HttpGet("{id}/User")]
+        public ActionResult<UserReadDto> GetUserOfComment(int id)
+        {
+            var user = _repo.GetUserOfComment(id);
+
+            return Ok(_mapper.Map<UserReadDto>(user));
+        }
+
+        [HttpGet("{id}/Like")]
+        public void AddLike(int id)
+        {
+            _repo.AddLike(id);
+            _repo.SaveChanges();
+        }
     }
 }

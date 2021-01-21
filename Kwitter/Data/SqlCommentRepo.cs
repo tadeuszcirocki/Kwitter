@@ -55,5 +55,19 @@ namespace Kwitter.Data
         {
            //Nothing
         }
+        public IEnumerable<Comment> GetCommentsByPostId(int postId)
+        {
+            return _context.Comments.Where(i => i.KweetId == postId).ToList();
+        }
+
+        public User GetUserOfComment(int id)
+        {
+            var userId = _context.Comments.FirstOrDefault(p => p.Id == id).UserId;
+            return _context.Users.FirstOrDefault(i => i.Id == userId);
+        }
+        public void AddLike(int id)
+        {
+            _context.Comments.FirstOrDefault(p => p.Id == id).LikeQuantity += 1;
+        }
     }
 }
