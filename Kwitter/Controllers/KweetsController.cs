@@ -6,6 +6,7 @@ using AutoMapper;
 using Kwitter.Data;
 using Kwitter.DTOs;
 using Kwitter.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -68,6 +69,66 @@ namespace Kwitter.Controllers
             return CreatedAtRoute(nameof(GetKweetById), new { kweetReadDto.Id }, kweetReadDto);
         }
 
+        //PUT api/Kweets/{id}
+        [HttpPut("{id}")]
+        public ActionResult UpdateKweet(int id, KweetUpdateDto kweetUpdateDto)
+        {
+            var kweetModelFromRepo = _repo.GetKweetById(id);
+            if(kweetModelFromRepo == null)
+            {
+                return NotFound();
+            }
+            _mapper.Map(kweetUpdateDto, kweetModelFromRepo);
 
+            _repo.UpdateKweet(kweetModelFromRepo);
+
+            _repo.SaveChanges();
+
+            return NoContent();
+        }
+
+        //PATCH api/Kweets/{id}
+        [HttpPatch("{id}")]
+        public ActionResult PartialKweetUpdate(int id, JsonPatchDocument<KweetUpdateDto> patchDoc)
+        {
+            var kweetModelFromRepo = _repo.GetKweetById(id);
+            if (kweetModelFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            var kweetToPatch = _mapper.Map<KweetUpdateDto>(kweetModelFromRepo);
+            patchDoc.ApplyTo(kweetToPatch, ModelState);
+
+            if (!TryValidateModel(kweetToPatch))
+            {
+                return ValidationProblem(ModelState);
+            }
+
+            _mapper.Map(kweetToPatch, kweetModelFromRepo);
+
+            _repo.UpdateKweet(kweetModelFromRepo);
+
+            _repo.SaveChanges();
+
+            return NoContent();
+        }
+
+        //DELETE api/Kweets/{id}
+        [HttpDelete("{id}")]
+        public ActionResult DeleteKweet(int id)
+        {
+            var kweetModelFromRepo = _repo.GetKweetById(id);
+            if (kweetModelFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            _repo.DeleteKweet(kweetModelFromRepo);
+
+            _repo.SaveChanges();
+
+            return NoContent();
+        }
     }
 }

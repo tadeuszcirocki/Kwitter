@@ -25,6 +25,15 @@ namespace Kwitter.Data
             _context.Users.Add(user);
         }
 
+        public void DeleteUser(User user)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+            _context.Users.Remove(user);
+        }
+
         public IEnumerable<User> GetAllUsers()
         {
             return _context.Users.ToList();
@@ -50,6 +59,11 @@ namespace Kwitter.Data
         public bool SaveChanges()
         {
             return (_context.SaveChanges() >= 0);
+        }
+
+        public void UpdateUser(User user)
+        {
+            //Nothing
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace Kwitter.DTOs
 {
-    public class UserCreateDto
+    public class UserUpdateDto
     {
         [Required]
         [MinLength(5)]

@@ -47,5 +47,19 @@ namespace Kwitter.Data
             Kweet kweet = _context.Kweets.FirstOrDefault(p => p.Id == id);
             return _context.Comments.Where(p => p.KweetId == kweet.Id).ToList();
         }
+
+        public void UpdateKweet(Kweet kweet)
+        {
+            //Nothing
+        }
+
+        public void DeleteKweet(Kweet kweet)
+        {
+            if (kweet == null)
+            {
+                throw new ArgumentNullException(nameof(kweet));
+            }
+            _context.Kweets.Remove(kweet);
+        }
     }
 }
