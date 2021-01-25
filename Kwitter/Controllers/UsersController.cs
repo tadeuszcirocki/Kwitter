@@ -141,8 +141,8 @@ namespace Kwitter.Controllers
             return NoContent();
         }
 
-        //GET api/Users/Login
-        [HttpGet("Login")]
+        //POST api/Users/Login
+        [HttpPost("Login")]
         public ActionResult<UserReadDto> GetUserLogin(UserLoginDto userLoginDto)
         {
             var user = _repo.GetUserLogin(userLoginDto);
