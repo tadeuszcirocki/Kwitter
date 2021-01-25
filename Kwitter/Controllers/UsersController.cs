@@ -140,5 +140,14 @@ namespace Kwitter.Controllers
 
             return NoContent();
         }
+
+        //GET api/Users/Login
+        [HttpGet("Login")]
+        public ActionResult<UserReadDto> GetUserLogin(UserLoginDto userLoginDto)
+        {
+            var user = _repo.GetUserLogin(userLoginDto);
+
+            return Ok(_mapper.Map<UserReadDto>(user));
+        }
     }
 }

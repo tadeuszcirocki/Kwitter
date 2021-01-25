@@ -1,4 +1,5 @@
-﻿using Kwitter.Models;
+﻿using Kwitter.DTOs;
+using Kwitter.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,7 @@ namespace Kwitter.Data
         public ICollection<Comment> GetUserByIdComments(int id);
         void UpdateUser(User user);
         void DeleteUser(User user);
+
+        User GetUserLogin(UserLoginDto userLoginDto);
     }
 }
