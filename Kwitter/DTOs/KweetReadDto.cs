@@ -14,7 +14,7 @@ namespace Kwitter.DTOs
 
         public int LikeQuantity { get; set; }
 
-        public DateTime? Created { get; set; }
+        public string Created { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
 
