@@ -1,4 +1,5 @@
-﻿using Kwitter.Models;
+﻿using Kwitter.DTOs;
+using Kwitter.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,10 @@ namespace Kwitter.Data
                 throw new ArgumentNullException(nameof(user));
             }
 
-            _context.Users.Add(user);
+            if(!_context.Users.Any(p => p.Username == user.Username))
+            {
+                _context.Users.Add(user);
+            }
         }
 
         public void DeleteUser(User user)
@@ -37,6 +41,11 @@ namespace Kwitter.Data
         public IEnumerable<User> GetAllUsers()
         {
             return _context.Users.ToList();
+        }
+
+        public User GetUserLogin(UserLoginDto userLoginDto)
+        {
+            return _context.Users.FirstOrDefault(p => p.Username == userLoginDto.Username && p.Password == userLoginDto.Password);
         }
 
         public User GetUserById(int id)
